@@ -4,7 +4,7 @@ function useFetch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchApi = async (fn, ...args) => {
+  async function fetchApi(fn, ...args) {
     try {
       setLoading(true);
       const data = await fn(...args);
@@ -14,8 +14,8 @@ function useFetch() {
     } finally {
       setLoading(false);
     }
-  };
-
+    return fetchApi;
+  }
   return { loading, error, fetchApi };
 }
 

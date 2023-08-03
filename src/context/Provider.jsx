@@ -4,11 +4,17 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [state, setState] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [selectedCountries, setSelectedCountries] = useState([]);
 
   const store = useMemo(() => ({
     state,
     setState,
-  }), [state]);
+    countries,
+    setCountries,
+    selectedCountries,
+    setSelectedCountries,
+  }), [state, countries, selectedCountries]);
 
   return (
     <Context.Provider value={store}>
