@@ -1,50 +1,29 @@
-import React, { useContext, useEffect } from 'react';
-import { Badge, Calendar } from 'antd';
-import './CalendarTable.css';
+import React, { useContext } from 'react';
+import { Calendar } from 'antd';
 import Context from '../context/Context';
-import useFetch from '../hooks/useFetch';
-import holidaysFetch from '../services/holidaysFetch';
+
+import '/node_modules/flag-icons/css/flag-icons.min.css';
 
 function CalendarTable() {
-  const { selectedCountries, holidays, setHolidays } = useContext(Context);
-  const { fetchApi } = useFetch();
-  useEffect(() => {
-    const requestHolidays = async () => {
-      selectedCountries.forEach(async (country) => {
-        const response = await fetchApi(holidaysFetch, country, new Date().getFullYear());
-        setHolidays(...holidays, response);
-      });
-    };
-    requestHolidays();
-  });
+  const { holidays } = useContext(Context);
 
   const getListData = (value) => {
     const dateString = value.format('YYYY-MM-DD');
     const listData = holidays.filter((holiday) => holiday.date === dateString);
     return listData || [];
   };
-  // const getMonthData = (value) => {
-  //   if (value.month() === 8) {
-  //     return 1394;
-  //   }
-  //   return null;
-  // };
-  // const monthCellRender = (value) => {
-  //   const num = getMonthData(value);
-  //   return num ? (
-  //     <div className="notes-month">
-  //       <section>{num}</section>
-  //       <span>Backlog number</span>
-  //     </div>
-  //   ) : null;
-  // };
+
   const dateCellRender = (value) => {
     const listData = getListData(value);
     return (
       <ul className="events">
-        {listData.map((item) => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
+        {listData.map((item, index) => (
+          <li key={`${item.date} ${item.countryCode} ${index}`}>
+            <span>
+              { item.localName }
+              { ' ' }
+              <span className={`fi fi-${item.countryCode.toLowerCase()}`} />
+            </span>
           </li>
         ))}
       </ul>
@@ -52,10 +31,9 @@ function CalendarTable() {
   };
   const cellRender = (current, info) => {
     if (info.type === 'date') return dateCellRender(current);
-    // if (info.type === 'month') return monthCellRender(current);
     return info.originNode;
   };
-  return <Calendar cellRender={cellRender} />;
+  return <Calendar cellRender={cellRender} />
 }
 
 export default CalendarTable;
