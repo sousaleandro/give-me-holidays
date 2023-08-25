@@ -13,7 +13,7 @@ function Selection() {
   return (
     <Select
       mode="multiple"
-      style={{ width: '100%' }}
+      style={{ width: '80%' }}
       placeholder="select one country"
       defaultValue={[]}
       onChange={handleChange}

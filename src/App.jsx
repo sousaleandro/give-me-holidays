@@ -10,7 +10,7 @@ import Header from './components/Header';
 import holidaysFetch from './services/holidaysFetch';
 
 function App() {
-  const { setCountries, selectedCountries, setHolidays, holidays } = useContext(Context);
+  const { setCountries, selectedCountries, setHolidays } = useContext(Context);
   const { fetchApi, loading } = useFetch();
   useEffect(() => {
     const request = async () => {
