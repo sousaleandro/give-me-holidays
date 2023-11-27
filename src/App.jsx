@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import Context from './context/Context';
 import useFetch from './hooks/useFetch';
@@ -12,6 +13,7 @@ import holidaysFetch from './services/holidaysFetch';
 function App() {
   const { setCountries, selectedCountries, setHolidays } = useContext(Context);
   const { fetchApi, loading } = useFetch();
+  
   useEffect(() => {
     const request = async () => {
       const response = await fetchApi(countriesFetch);

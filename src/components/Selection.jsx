@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Select, Space } from 'antd';
 import Context from '../context/Context';
+import 'flag-icons/css/flag-icons.min.css';
 
 const { Option } = Select;
 
@@ -23,7 +24,8 @@ function Selection() {
         countries.map((country) => (
           <Option key={country.countryCode} value={country.countryCode} label={country.name}>
             <Space>
-              {`${country.name} - ${country.countryCode}`}
+              <span className={`fi fi-${country.countryCode.toLowerCase()}`} />
+              {`${country.name}`}
             </Space>
           </Option>
         ))

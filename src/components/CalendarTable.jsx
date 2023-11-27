@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Calendar } from 'antd';
 import Context from '../context/Context';
 
-import '/node_modules/flag-icons/css/flag-icons.min.css';
+import 'flag-icons/css/flag-icons.min.css';
 
 function CalendarTable() {
   const { holidays } = useContext(Context);
@@ -20,9 +20,9 @@ function CalendarTable() {
         {listData.map((item, index) => (
           <li key={`${item.date} ${item.countryCode} ${index}`}>
             <span>
-              { item.localName }
-              { ' ' }
               <span className={`fi fi-${item.countryCode.toLowerCase()}`} />
+              { ' ' }
+              { item.localName }
             </span>
           </li>
         ))}
