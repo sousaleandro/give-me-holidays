@@ -1,16 +1,45 @@
-import React from 'react';
-import { Route, Routes } from 'react-router';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
+import Context from './context/Context';
+import useFetch from './hooks/useFetch';
+import countriesFetch from './services/countriesFetch';
+import CalendarTable from './components/CalendarTable';
+import Selection from './components/Selection';
 
-import Home from './pages/Home';
-import Calendar from './pages/Calendar';
 import './App.css';
+import Header from './components/Header';
+import holidaysFetch from './services/holidaysFetch';
 
 function App() {
+  const { setCountries, selectedCountries, setHolidays } = useContext(Context);
+  const { fetchApi, loading } = useFetch();
+  
+  useEffect(() => {
+    const request = async () => {
+      const response = await fetchApi(countriesFetch);
+      setCountries(response);
+    };
+    request();
+  }, []);
+
+  useEffect(() => {
+    const requestHolidays = async () => {
+      let arr = [];
+      selectedCountries.forEach(async (country) => {
+        const response = await fetchApi(holidaysFetch, country, new Date().getFullYear());
+        arr.push(...response);
+      },
+      setHolidays(arr));
+    };
+    requestHolidays();
+  }, [selectedCountries]);
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/calendar" element={<Calendar />} />
-    </Routes>
+    <>
+      <Header />
+      <Selection />
+      { loading ? <div> Loading... </div> : <CalendarTable /> }
+    </>
   );
 }
 

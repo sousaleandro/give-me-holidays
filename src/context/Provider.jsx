@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
-  const [state, setState] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [selectedCountries, setSelectedCountries] = useState([]);
+  const [holidays, setHolidays] = useState([]);
 
   const store = useMemo(() => ({
-    state,
-    setState,
-  }), [state]);
+    countries,
+    setCountries,
+    selectedCountries,
+    setSelectedCountries,
+    holidays,
+    setHolidays,
+  }), [countries, selectedCountries, holidays]);
 
   return (
     <Context.Provider value={store}>
