@@ -2,7 +2,7 @@
   "name": "give-me-holidays",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://username.github.io/app-toot-name",
+  "homepage": "https://sousaleandro.github.io/give-me-holidays/",
   "dependencies": {
     "@ant-design/icons": "^5.2.4",
     "antd": "^5.8.1",
